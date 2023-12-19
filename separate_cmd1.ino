@@ -65,6 +65,7 @@ void runStepper(int angle, int runTime) {
   delay(runTime);
 }
 
+//only comma separated
 void processCommand(String command) {
   char separator = ',';
 
