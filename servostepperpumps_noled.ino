@@ -4,13 +4,13 @@
 #include <Servo.h>
 
 const int motorPins[] = {54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83};
-const int dirPin = 13;
-const int pulPin = 12;
+const int dirPin = 12;
+const int pulPin = 11;
 
-const int driverOut1 = 84;
-const int driverOut2 = 85;
+const int driverOut1 = 83;
+const int driverOut2 = 82;
 const int servoPin = 12; 
-const int servoPWM = 11;
+const int servoPWM = 5; //3rd section in the MPAINO PWM
 
 Servo myServo;
 
