@@ -11,7 +11,7 @@ const int NUM_LEDS = 32;
 
 const int driverOut1 = 82;
 const int driverOut2 = 83;
-const int servoPin = 12;
+const int servoPin = 5;
 
 Servo myServo;
 
@@ -27,6 +27,37 @@ bool iswashing = true;
 
 unsigned long pumpStartTimes[numPumps] = {0};
 CRGB leds[NUM_LEDS];
+
+
+void setup() {
+  // Initialize motor pins as OUTPUT
+  for (int i = 0; i < numPumps; i++) {
+    pinMode(motorPins[i], OUTPUT);
+  }
+
+  // Initialize driver output pins as OUTPUT
+  pinMode(driverOut1, OUTPUT);
+  pinMode(driverOut2, OUTPUT);
+
+  // Initialize servo motor
+  myServo.attach(servoPin);
+
+  // Initialize LED strip
+  FastLED.addLeds<WS2812, pulPin, GRB>(leds, NUM_LEDS);
+  FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
+  FastLED.setBrightness(50);
+  FastLED.clear();
+  FastLED.show();
+
+  // Initialize other pins
+  pinMode(dirPin, OUTPUT);
+  pinMode(pulPin, OUTPUT);
+  pinMode(IR_PIN, INPUT);
+
+  // Initialize serial communication
+  Serial.begin(115200);
+}
+
 
 void runPumps(int pumpNumber, int runTime) {
   Serial.println("Running pump " + String(pumpNumber) + " for " + String(runTime) + " milliseconds");
@@ -441,35 +472,6 @@ void processCommand(String command) {
   }
 }
 
-
-void setup() {
-  // Initialize motor pins as OUTPUT
-  for (int i = 0; i < numPumps; i++) {
-    pinMode(motorPins[i], OUTPUT);
-  }
-
-  // Initialize driver output pins as OUTPUT
-  pinMode(driverOut1, OUTPUT);
-  pinMode(driverOut2, OUTPUT);
-
-  // Initialize servo motor
-  myServo.attach(servoPin);
-
-  // Initialize LED strip
-  FastLED.addLeds<WS2812, pulPin, GRB>(leds, NUM_LEDS);
-  FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
-  FastLED.setBrightness(50);
-  FastLED.clear();
-  FastLED.show();
-
-  // Initialize other pins
-  pinMode(dirPin, OUTPUT);
-  pinMode(pulPin, OUTPUT);
-  pinMode(IR_PIN, INPUT);
-
-  // Initialize serial communication
-  Serial.begin(115200);
-}
 
 void loop() {
   if (Serial.available() > 0) {
