@@ -58,7 +58,6 @@ void setup() {
   Serial.begin(115200);
 }
 
-
 void runPumps(int pumpNumber, int runTime) {
   Serial.println("Running pump " + String(pumpNumber) + " for " + String(runTime) + " milliseconds");
   digitalWrite(motorPins[pumpNumber], HIGH);
@@ -101,7 +100,6 @@ void runStepper(int angle, int runTime) {
 void ledStrip() {
   CRGB brownishYellow = CRGB(218, 165, 32);
   CRGB red = CRGB(255, 0, 0);
-
   while (true) {
     for (int i = 0; i <= NUM_LEDS - GROUP_SIZE; i++) {
       for (int j = 0; j < GROUP_SIZE; j++) {
@@ -124,7 +122,6 @@ void ledStrip() {
         leds[i + j] = red;
       }
     }
-
     for (int i = NUM_LEDS - GROUP_SIZE; i >= 0; i--) {
       for (int j = 0; j < GROUP_SIZE; j++) {
         leds[i + j] = CRGB::Green;
@@ -141,7 +138,6 @@ void ledStrip() {
           return;
         }
       }
-
       for (int j = 0; j < GROUP_SIZE; j++) {
         leds[i + j] = CRGB::Pink;
       }
