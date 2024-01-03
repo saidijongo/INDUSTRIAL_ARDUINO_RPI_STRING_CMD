@@ -16,7 +16,7 @@ const int servoPin = 5;
 Servo myServo;
 
 const int numPumps = sizeof(motorPins) / sizeof(motorPins[0]);
-const int numStepsPerRevolution = 6400;
+const int numStepsPerRevolution = 5000; //6400
 
 #define GROUP_SIZE 5
 float animation = 0;
