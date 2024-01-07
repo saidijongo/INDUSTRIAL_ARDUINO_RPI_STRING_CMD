@@ -1,4 +1,5 @@
 
+
 #include <Arduino.h>
 #include <Servo.h>
 #include <FastLED.h>
@@ -24,7 +25,6 @@ float fadeAnimation = 0;
 #define ANIMATION_DELAY 100
 
 bool iswashing = true;
-
 unsigned long pumpStartTimes[numPumps] = {0};
 CRGB leds[NUM_LEDS];
 
