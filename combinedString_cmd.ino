@@ -39,10 +39,10 @@ void setup() {
   pinMode(driverOut1, OUTPUT);
   pinMode(driverOut2, OUTPUT);
 
-  // Initialize servo motor
+
   myServo.attach(servoPin);
 
-  // Initialize LED strip
+  
   FastLED.addLeds<WS2812, pulPin, GRB>(leds, NUM_LEDS);
   FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
   FastLED.setBrightness(50);
