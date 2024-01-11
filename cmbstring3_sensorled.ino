@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 #include <Servo.h>
 #include <FastLED.h>
@@ -34,6 +33,7 @@ void runPumps(int pumpNumber, int runTime) {
   // Start the pump
   digitalWrite(motorPins[pumpNumber], HIGH);
 
+  
   // Record the start time
   pumpStartTimes[pumpNumber] = millis();
 
@@ -77,7 +77,8 @@ void runStepper(int angle, int runTime) {
   digitalWrite(dirPin, direction);
 
   // Calculate the number of steps based on the angle
-  int steps = angle * numStepsPerRevolution / 360;
+  //int steps = angle * numStepsPerRevolution / 360;
+  int steps =6400;
 
   // Run the stepper motor
   for (int i = 0; i < steps; i++) {
