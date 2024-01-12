@@ -1,4 +1,3 @@
-//Mpaino test
 #include <FastLED.h>
 
 #define NUM_LEDS 135
@@ -17,7 +16,7 @@ float fadeAnimation = 0;
 
 void setup() {
   FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
-  FastLED.addLeds<WS2812, LED_PIN_BTM, GRB>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2812, LED_PIN_BTM, GRB>(leds, NUM_LEDS); //MTM = Bottom led strip
 
   //FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
   //FastLED.setBrightness(250);
@@ -45,10 +44,10 @@ void adiosMf() {
     }
   }
 
-  // Move the group of brownish yellow LEDs from right to left on a red background
+  // Move the group of LEDs from right to left on a background
   for (int i = NUM_LEDS - GROUP_SIZE; i >= 0; i--) {
     for (int j = 0; j < GROUP_SIZE; j++) {
-      leds[i + j] = brownishYellow; // Set LEDs to brownish yellow
+      leds[i + j] = brownishYellow;
     }
     FastLED.show();
     delay(ANIMATION_DELAY);
