@@ -1,9 +1,9 @@
-//Mpaino test, two adaftrut strips
+//Mpaino test
 #include <FastLED.h>
 
 #define NUM_LEDS 135
 #define LED_PIN 46
-#define LED_PIN2 45
+#define LED_PIN_BTM 45
 
 CRGB leds[NUM_LEDS];
 
@@ -17,10 +17,12 @@ float fadeAnimation = 0;
 
 void setup() {
   FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
-    FastLED.addLeds<WS2812, LED_PIN2, GRB>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2812, LED_PIN_BTM, GRB>(leds, NUM_LEDS);
 
-  FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
+  //FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
+  //FastLED.setBrightness(250);
   FastLED.setBrightness(100);
+
   Serial.begin(115200);
   FastLED.clear();
   FastLED.show();
