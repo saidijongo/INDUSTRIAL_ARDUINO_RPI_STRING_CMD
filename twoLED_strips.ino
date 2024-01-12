@@ -1,4 +1,4 @@
-//Mpaino test
+//Mpaino test, two adaftrut strips
 #include <FastLED.h>
 
 #define NUM_LEDS 135
