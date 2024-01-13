@@ -13,6 +13,7 @@ const int driverOut1 = 82;
 const int driverOut2 = 83;
 const int servoPin = 12; 
 
+
 Servo myServo;
 
 const int numPumps = sizeof(motorPins) / sizeof(motorPins[0]);
@@ -72,6 +73,7 @@ void runStepper(int angle, int runTime) {
   Serial.print(runTime);
   Serial.println(" ms");
 
+  
   int direction = (angle >= 0) ? HIGH : LOW;
   angle = abs(angle);
   digitalWrite(dirPin, direction);
