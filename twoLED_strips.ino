@@ -27,7 +27,7 @@ void setup() {
   FastLED.clear();
   FastLED.show();
 }
-void adiosMf() {
+void ledStrip() {
   // Initialize color values
   CRGB brownishYellow = CRGB(0, 255, 0); // Brownish Yellow color
   CRGB red = CRGB(255, 0, 255);
@@ -60,7 +60,7 @@ void adiosMf() {
 }
 
 void loop() {
-  adiosMf();
+  ledStrip();
 
 
 }
