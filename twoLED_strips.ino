@@ -1,3 +1,4 @@
+//Two strips connected together
 #include <FastLED.h>
 
 #define NUM_LEDS 135
@@ -18,8 +19,8 @@ void setup() {
   FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
   FastLED.addLeds<WS2812, LED_PIN_BTM, GRB>(leds, NUM_LEDS); //MTM = Bottom led strip
 
-  //FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
-  //FastLED.setBrightness(250);
+  FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
+  //FastLED.setBrightness(200);
   FastLED.setBrightness(100);
 
   Serial.begin(115200);
