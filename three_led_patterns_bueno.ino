@@ -1,8 +1,9 @@
+
 #include <FastLED.h>
 #include <elapsedMillis.h>
 
-#define LED_PIN 11
-#define NUM_LEDS 32
+#define LED_PIN 12
+#define NUM_LEDS 50
 
 CRGB leds[NUM_LEDS];
 
@@ -56,7 +57,6 @@ void ledStrip(int speed, int runTime) {
 
   while (elapsedTime < runTime) {
     currentTime = millis(); // Update currentTime
-
     // Move the group of 5 green LEDs from left to right
     for (int i = 0; i <= NUM_LEDS - 5; ++i) {
       fill_solid(leds + i, 5, CRGB::Green); // Set a group of 5 LEDs to green
