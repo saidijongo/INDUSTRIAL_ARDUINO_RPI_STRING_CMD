@@ -3,15 +3,15 @@
 #include <FastLED.h>
 
 const int motorPins[] = {54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83};
-const int dirPin = 45;
-const int pulPin = 46;
+const int dirPin = 11;
+const int pulPin = 12;
 
 const int IR_PIN = 13;
 const int NUM_LEDS = 32;
 
 const int driverOut1 = 82;
 const int driverOut2 = 83;
-const int servoPin = 12; 
+const int servoPin = 44; 
 
 
 Servo myServo;
