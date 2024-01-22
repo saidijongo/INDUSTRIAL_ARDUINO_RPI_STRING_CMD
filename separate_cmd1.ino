@@ -1,3 +1,5 @@
+//SEPARATE
+
 //"(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(54,1000),(55,3500),(56,2600),(57,1000),(58,2500),(59,4000),(59,1000),(60,5500),(61,500),(62,3600),(64,1000),(65,2500),(66,4000),(67,1000),(68,5500),(69,5000),(70,3600),(71,2000),(75,2500),(80,4000),(83,1000),(78,5500)"
 // "(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(56,3000),(58,4250),(56,3000),(60,4000)"
 //"(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(54,1000),(55,425--2000),(56,3000),(57,4000),(58,3000)"
@@ -8,9 +10,9 @@
 #include <Arduino.h>
 
 const int motorPins[] = {54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83};
-const int dirPin = 13;
-const int pulPin = 12;
-const int servoPWM = 11;
+const int dirPin = 45;
+const int pulPin = 46;
+const int servoPWM = 44;
 
 const int driverOut1 = 84;
 const int driverOut2 = 85;
@@ -55,7 +57,7 @@ void runStepper(int angle, int runTime) {
   digitalWrite(dirPin, direction);
 
   // Calculate the number of steps based on the angle
-  int steps = angle * 6400 / 360; 
+  int steps = int (2* (angle / 1.8)); 
 
   // Run the stepper motor
   for (int i = 0; i < steps; i++) {
