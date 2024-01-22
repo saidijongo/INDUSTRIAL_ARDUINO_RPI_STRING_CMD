@@ -13,6 +13,8 @@ const int numPumps = sizeof(motorPins) / sizeof(motorPins[0]);
 bool isReverse = true;
 
 unsigned long pumpStartTimes[numPumps] = {0};
+unsigned long lastPumpEndTime = 0; // Variable to store the end time of the last pump
+
 String currentMotorType; // Add this line to store the current motor type
 
 void setup() {
@@ -30,7 +32,13 @@ void setup() {
 
 void runPumps(int pumpNumber, int runTime) {
   digitalWrite(motorPins[pumpNumber - 54], HIGH);
-  pumpStartTimes[pumpNumber - 54] = millis() + runTime; // Set the time when the pump should be turned off
+  pumpStartTimes[pumpNumber - 54] = millis() + runTime;
+
+  // Update lastPumpEndTime if the current pump has a later end time
+  if (pumpStartTimes[pumpNumber - 54] > lastPumpEndTime) {
+    lastPumpEndTime = pumpStartTimes[pumpNumber - 54];
+  }
+
   Serial.print("Running pump: ");
   Serial.println(pumpNumber);
 }
@@ -49,7 +57,7 @@ void runStepper(int angle, int runTime) {
   digitalWrite(dirPin, direction);
 
   // Calculate the number of steps based on the angle
-  int steps = int (2 * (angle / 1.8));
+  int steps = int(2 * (angle / 1.8));
 
   // Run the stepper motor
   for (int i = 0; i < steps; i++) {
@@ -167,5 +175,7 @@ void loop() {
     processCommand(data);
   }
 }
+
+
 //"(REVERSE_PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(54,1000),(55,3500),(56,2600),(57,1000),(58,2500),(59,4000),(59,1000),(60,5500),(61,500),(62,3600),(64,1000),(65,2500),(66,4000),(67,1000),(68,5500),(69,5000),(70,3600),(71,2000),(75,2500),(80,4000),(83,1000),(78,5500)"
 //"(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(54,1000),(55,3500),(56,2600),(57,1000),(58,2500),(59,4000),(59,1000),(60,5500),(61,500),(62,3600),(64,1000),(65,2500),(66,4000),(67,1000),(68,5500),(69,5000),(70,3600),(71,2000),(75,2500),(80,4000),(83,1000),(78,5500)"
