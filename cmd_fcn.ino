@@ -5,9 +5,6 @@ void processCommand(String command) {
   int firstBracketIndex = command.indexOf('(');
   int secondBracketIndex = command.indexOf(')', firstBracketIndex + 1);
 
-  // Check if there is a semicolon in the command
-  int semiColonIndex = command.indexOf(semiColon);
-
   while (firstBracketIndex != -1 && secondBracketIndex != -1) {
     String motorTypeAndSID = command.substring(firstBracketIndex + 1, secondBracketIndex);
     motorTypeAndSID.trim();
@@ -28,7 +25,7 @@ void processCommand(String command) {
           motorType == "LEDSTRIP_OPERATION") {
 
         int index = secondBracketIndex + 1;
-        while (index < command.length() && index < semiColonIndex) {
+        while (index < command.length()) {
           int nextBracketIndex = command.indexOf('(', index);
           int endIndex = command.indexOf(')', nextBracketIndex + 1);
 
@@ -62,6 +59,9 @@ void processCommand(String command) {
                 } else {
                   Serial.println("Invalid LED strip state");
                 }
+
+                index = endIndex + 1;  // Move to the next command
+                continue;
               }
 
               index = endIndex + 1;
