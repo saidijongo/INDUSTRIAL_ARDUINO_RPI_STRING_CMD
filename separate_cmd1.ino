@@ -19,7 +19,7 @@ const int driverOut2 = 85;
 
 const int numPumps = sizeof(motorPins) / sizeof(motorPins[0]);
 
-bool iswashing = true;
+bool isReverse = true;
 
 unsigned long pumpStartTimes[numPumps] = {0};
 
@@ -96,10 +96,10 @@ void processCommand(String command) {
       // Relay control logic based on motorType
       if (motorType == "PUMPMOTOR_OPERATION") {
         digitalWrite(driverOut1, HIGH);
-        iswashing = true;
-      } else if (motorType == "WASHING_OPERATION") {
+        isReverse = false;
+      } else if (motorType == "REVERSE_PUMPMOTOR_OPERATION") {
         digitalWrite(driverOut2, HIGH);
-        iswashing = true;
+        isReverse = true;
       }
 
 
@@ -124,6 +124,7 @@ void processCommand(String command) {
             Serial.println(param2);
 
             if (motorType == "PUMPMOTOR_OPERATION") runPumps(param1, param2);
+            else if (motorType == "REVERSE_PUMPMOTOR_OPERATION") runPumps(param1, param2);
             else if (motorType == "SERVOMOTOR_OPERATION") runServo(param1, param2);
             else if (motorType == "STEPPERMOTOR_OPERATION") runStepper(param1, param2);
             else Serial.println("Unknown motor type");
@@ -160,6 +161,7 @@ void loop() {
   }
 }
 // "(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(56,3000),(58,4250),(56,3000),(60,4000)"
+//"(REVERSE_PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(70,3000),(58,4250),(56,3000),(60,4000)"
 //"(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(54,1000),(55,425--2000),(56,3000),(57,4000),(58,3000)"
 //"(SERVOMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(90,3000)"
 //"(STEPPERMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(360,2000)"
