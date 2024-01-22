@@ -1,4 +1,3 @@
-//don't turn off
 
 #include <Arduino.h>
 
@@ -13,10 +12,8 @@ const int driverOut2 = 85;
 const int numPumps = sizeof(motorPins) / sizeof(motorPins[0]);
 
 bool isReverse = true;
-unsigned long driverOffTime = 0; // Variable to store the time when the driver should be turned off
 
 unsigned long pumpStartTimes[numPumps] = {0};
-String currentMotorType; // Add this line to store the current motor type
 
 void setup() {
   for (int i = 0; i < numPumps; i++) {
@@ -27,7 +24,6 @@ void setup() {
   pinMode(dirPin, OUTPUT);
   pinMode(pulPin, OUTPUT);
   pinMode(servoPWM, OUTPUT);
-
   pinMode(driverOut1, OUTPUT);
   pinMode(driverOut2, OUTPUT);
 
@@ -39,9 +35,6 @@ void runPumps(int pumpNumber, int runTime) {
   pumpStartTimes[pumpNumber - 54] = millis() + runTime; // Set the time when the pump should be turned off
   Serial.print("Running pump: ");
   Serial.println(pumpNumber);
-  
-  // Set the driver off time to the maximum time any pump will run
-  driverOffTime = max(driverOffTime, pumpStartTimes[pumpNumber - 54]);
 }
 
 void runServo(int angle, int runTime) {
@@ -50,9 +43,6 @@ void runServo(int angle, int runTime) {
 
   // Wait for the specified time
   delay(runTime);
-  
-  // Set the driver off time
-  driverOffTime = max(driverOffTime, millis() + runTime);
 }
 
 void runStepper(int angle, int runTime) {
@@ -61,7 +51,7 @@ void runStepper(int angle, int runTime) {
   digitalWrite(dirPin, direction);
 
   // Calculate the number of steps based on the angle
-  int steps = int (2 * (angle / 1.8));
+  int steps = int(2 * (angle / 1.8));
 
   // Run the stepper motor
   for (int i = 0; i < steps; i++) {
@@ -73,17 +63,6 @@ void runStepper(int angle, int runTime) {
 
   // Run for the requested time
   delay(runTime);
-  
-  // Set the driver off time
-  driverOffTime = max(driverOffTime, millis() + runTime);
-}
-
-void turnOffDrivers() {
-  // Check if the current time is greater than or equal to the driver off time
-  if (millis() >= driverOffTime) {
-    digitalWrite(driverOut1, LOW);
-    digitalWrite(driverOut2, LOW);
-  }
 }
 
 void processCommand(String command) {
@@ -101,23 +80,17 @@ void processCommand(String command) {
       String motorType = motorTypeAndSID.substring(0, spaceIndex);
       String SID = motorTypeAndSID.substring(spaceIndex + 1);
 
-      //Serial.print("Motor Type: ");
-      //Serial.println(motorType);
       Serial.print("SID: ");
       Serial.println(SID);
 
       // Relay control logic based on motorType
       if (motorType == "PUMPMOTOR_OPERATION") {
         digitalWrite(driverOut1, HIGH);
-        digitalWrite(driverOut2, LOW);  // Ensure the other driver is off
         isReverse = false;
       } else if (motorType == "REVERSE_PUMPMOTOR_OPERATION") {
         digitalWrite(driverOut2, HIGH);
-        digitalWrite(driverOut1, LOW);  // Ensure the other driver is off
         isReverse = true;
       }
-
-      currentMotorType = motorType; // Store the current motor type
 
       // Extract pump number/angle and run time from subsequent brackets
       int index = secondBracketIndex + 1;
@@ -133,16 +106,16 @@ void processCommand(String command) {
             int param1 = inputData.substring(0, commaIndex).toInt();
             int param2 = inputData.substring(commaIndex + 1).toInt();
 
-            Serial.print(currentMotorType); // Use the stored motor type
+            Serial.print(motorType);
             Serial.print(": Param1: ");
             Serial.print(param1);
             Serial.print(", Param2: ");
             Serial.println(param2);
 
-            if (currentMotorType == "PUMPMOTOR_OPERATION") runPumps(param1, param2);
-            else if (currentMotorType == "REVERSE_PUMPMOTOR_OPERATION") runPumps(param1, param2);
-            else if (currentMotorType == "SERVOMOTOR_OPERATION") runServo(param1, param2);
-            else if (currentMotorType == "STEPPERMOTOR_OPERATION") runStepper(param1, param2);
+            if (motorType == "PUMPMOTOR_OPERATION") runPumps(param1, param2);
+            else if (motorType == "REVERSE_PUMPMOTOR_OPERATION") runPumps(param1, param2);
+            else if (motorType == "SERVOMOTOR_OPERATION") runServo(param1, param2);
+            else if (motorType == "STEPPERMOTOR_OPERATION") runStepper(param1, param2);
             else Serial.println("Unknown motor type");
           } else {
             Serial.println("Invalid pump data format");
@@ -163,16 +136,22 @@ void processCommand(String command) {
 
 void loop() {
   // Check and deactivate pumps if the run time has elapsed
+  unsigned long currentTime = millis();
   bool allPumpsOff = true;
+
   for (int i = 0; i < numPumps; i++) {
-    if (millis() < pumpStartTimes[i] || digitalRead(motorPins[i]) == HIGH) {
+    if (currentTime >= pumpStartTimes[i] && digitalRead(motorPins[i]) == HIGH) {
+      digitalWrite(motorPins[i], LOW);
+    }
+
+    if (currentTime < pumpStartTimes[i] || digitalRead(motorPins[i]) == HIGH) {
       allPumpsOff = false;
-      break;
     }
   }
 
   if (allPumpsOff) {
-    turnOffDrivers();
+    digitalWrite(driverOut1, LOW);
+    digitalWrite(driverOut2, LOW);
   }
 
   if (Serial.available() > 0) {
@@ -181,6 +160,7 @@ void loop() {
     processCommand(data);
   }
 }
+
 
 
 //"(REVERSE_PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(54,1000),(55,3500),(56,2600),(57,1000),(58,2500),(59,4000),(59,1000),(60,5500),(61,500),(62,3600),(64,1000),(65,2500),(66,4000),(67,1000),(68,5500),(69,5000),(70,3600),(71,2000),(75,2500),(80,4000),(83,1000),(78,5500)"
