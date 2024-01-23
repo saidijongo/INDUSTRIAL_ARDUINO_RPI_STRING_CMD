@@ -41,7 +41,7 @@ void runPumps(int pumpNumber, int runTime) {
   pumpStartTimes[pumpNumber - 54] = millis() + runTime; // Set the time when the pump should be turned off
   Serial.print("Running pump: ");
   Serial.println(pumpNumber);
-}
+
 
 void runServo(int angle, int runTime) {
   // Move the servo to the specified angle
@@ -127,6 +127,7 @@ void processCommand(String command) {
             else if (motorType == "REVERSE_PUMPMOTOR_OPERATION") runPumps(param1, param2);
             else if (motorType == "SERVOMOTOR_OPERATION") runServo(param1, param2);
             else if (motorType == "STEPPERMOTOR_OPERATION") runStepper(param1, param2);
+            else if (motorType == "LEDSTRIP_OPERATION") roundStrip(param1, param2); //param1 =speed, param2 ON(1) or OFF(0)
             else Serial.println("Unknown motor type");
           } else {
             Serial.println("Invalid pump data format");
