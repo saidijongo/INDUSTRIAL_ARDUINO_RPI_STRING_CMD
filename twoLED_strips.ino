@@ -1,14 +1,14 @@
 //Two strips connected together
 #include <FastLED.h>
 
-#define NUM_LEDS 135
-#define LED_PIN 46
-#define LED_PIN_BTM 45
+#define NUM_LEDS 15
+#define LED_PIN 11
+#define LED_PIN_BTM 12
 
 CRGB leds[NUM_LEDS];
 
 // Number of LEDs in the moving group
-#define GROUP_SIZE 10
+#define GROUP_SIZE 2
 float animation = 0;
 float fadeAnimation = 0;
 
@@ -58,6 +58,7 @@ void ledStrip() {
     }
   }
 }
+
 
 void loop() {
   ledStrip();
