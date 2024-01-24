@@ -248,6 +248,7 @@ void toggleLEDState() {
 }
 
 
+
 void ledStripWithBlink(int speed, int runTime) {
   unsigned long startTime = millis();
   unsigned long currentTime;
@@ -265,6 +266,7 @@ void ledStripWithBlink(int speed, int runTime) {
       fill_solid(leds + i, GROUP_SIZE, CRGB::Red); // Set the same group back to red
     }
 
+    
     // Move the group of 3 blue LEDs from right to left
     for (int i = NUM_LEDS - GROUP_SIZE; i >= 0; --i) {
       fill_solid(leds + i, GROUP_SIZE, CRGB::Blue); // Set a group of 3 LEDs to blue
@@ -274,6 +276,7 @@ void ledStripWithBlink(int speed, int runTime) {
       fill_solid(leds + i, GROUP_SIZE, CRGB::Red); // Set the same group back to red
     }
 
+    
     // Check if runtime exceeded
     currentTime = millis(); // Update currentTime
     if (currentTime - startTime >= runTime) {
@@ -281,11 +284,12 @@ void ledStripWithBlink(int speed, int runTime) {
     }
   }
 
+  
   // Turn off LEDs after the runTime
   fill_solid(leds, NUM_LEDS, CRGB::Black); // Set all LEDs to black (off)
   FastLED.show();
 
-  delay(3000);
+  delay(1500);
 
   // Reset elapsedTime for blinking
   elapsedTime = 0;
@@ -365,6 +369,7 @@ void processCommand(String command) {
         isReverse = true;
       }
 
+      
       if (motorType == "PUMPMOTOR_OPERATION" ||
           motorType == "REVERSE_PUMPMOTOR_OPERATION" ||
           motorType == "SERVOMOTOR_OPERATION" ||
@@ -372,6 +377,7 @@ void processCommand(String command) {
           motorType == "LEDSTRIP_OPERATION" ||
           motorType == "LEDSTRIP_CUBE_OPERATION") {
 
+        
         int index = secondBracketIndex + 1;
         while (index < command.length()) {
           int nextBracketIndex = command.indexOf('(', index);
