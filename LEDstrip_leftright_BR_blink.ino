@@ -1,10 +1,12 @@
 #include <FastLED.h>
 #include <elapsedMillis.h>
 
-#define LED_PIN 11
-#define NUM_LEDS 15
+#define LED_PIN 12
+#define NUM_LEDS 17
 
+#define GROUP_SIZE 3
 CRGB leds[NUM_LEDS];
+
 
 elapsedMillis elapsedTime; // Declare elapsedTime as a static variable
 bool continueLoop = true;  // Flag to control loop continuation
@@ -22,21 +24,21 @@ void ledStripWithBlink(int speed, int runTime) {
 
   while (continueLoop && (millis() - startTime < runTime)) {
     // Move the group of 3 blue LEDs from left to right
-    for (int i = 0; i <= NUM_LEDS - 3; ++i) {
-      fill_solid(leds + i, 3, CRGB::Blue); // Set a group of 3 LEDs to blue
+    for (int i = 0; i <= NUM_LEDS - GROUP_SIZE; ++i) {
+      fill_solid(leds + i, GROUP_SIZE, CRGB::Blue); // Set a group of 3 LEDs to blue
       fill_solid(leds, i, CRGB::Red); // Set the background to red
       FastLED.show();
       delay(speed);
-      fill_solid(leds + i, 3, CRGB::Red); // Set the same group back to red
+      fill_solid(leds + i, GROUP_SIZE, CRGB::Red); // Set the same group back to red
     }
 
     // Move the group of 3 blue LEDs from right to left
-    for (int i = NUM_LEDS - 3; i >= 0; --i) {
-      fill_solid(leds + i, 3, CRGB::Blue); // Set a group of 3 LEDs to blue
+    for (int i = NUM_LEDS - GROUP_SIZE; i >= 0; --i) {
+      fill_solid(leds + i, GROUP_SIZE, CRGB::Blue); // Set a group of 3 LEDs to blue
       fill_solid(leds, i, CRGB::Red); // Set the background to red
       FastLED.show();
       delay(speed);
-      fill_solid(leds + i, 3, CRGB::Red); // Set the same group back to red
+      fill_solid(leds + i, GROUP_SIZE, CRGB::Red); // Set the same group back to red
     }
 
     // Check if runtime exceeded
