@@ -10,11 +10,11 @@
 #define GROUP_SIZE 3
 
 CRGB leds[NUM_LEDS];
-elapsedMillis elapsedTime; // Declare elapsedTime as a static variable
-bool continueLoop = true;  // Flag to control loop continuation
+elapsedMillis elapsedTime; // elapsedTime as a static variable
+bool continueLoop = true;  // loop continuation flag
 
 CRGB ledscube[NUM_LEDS_CUBE];
-bool ledStripState = false; // Initial state is OFF
+bool ledStripState = false; // OFF initially
 unsigned long irSensorTimer = 0;
 
 void setup() {
