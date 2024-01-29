@@ -1,13 +1,13 @@
 #include <FastLED.h>
 #include <elapsedMillis.h>
 /*
-#define NUM_LEDS_CUBE 15
+#define NUM_LEDS_CUBE 32
 #define IR_PIN 13
 #define LED_PIN_CUBE 11
 
 #define LED_PIN 12
 #define NUM_LEDS 17
-#define GROUP_SIZE 3
+#define GROUP_SIZE 5
 
 CRGB leds[NUM_LEDS];
 elapsedMillis elapsedTime; // elapsedTime as a static variable
@@ -39,8 +39,8 @@ void toggleLEDState() {
     lastIrState = currentIrState;
   }
 
-  // Check if the sensor has been interrupted for more than 10 seconds
-  if (currentIrState == LOW && millis() - sensorInterruptedTime >= 10000) {
+  // Check if the sensor has been interrupted for more than 3 seconds
+  if (currentIrState == LOW && millis() - sensorInterruptedTime >= 3000) {
     // Toggle LED strip state
     ledStripState = !ledStripState;
 
