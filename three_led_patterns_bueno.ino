@@ -1,4 +1,5 @@
 
+
 #include <FastLED.h>
 #include <elapsedMillis.h>
 
@@ -86,7 +87,7 @@ void ledStrip(int speed, int runTime) {
 
 void blinkLEDs() {
   const int blinkDuration = 20000;  // 20 seconds
-  const int blinkInterval = 500;   // 500 milliseconds (0.5 seconds)
+  const int blinkInterval = 300;   // 0.3 seconds
 
   static elapsedMillis elapsedTime; // Track elapsed time
 
