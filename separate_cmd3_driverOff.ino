@@ -32,7 +32,7 @@ void setup() {
 
 void runPumps(int pumpNumber, int runTime) {
   digitalWrite(motorPins[pumpNumber - 54], HIGH);
-  pumpStartTimes[pumpNumber - 54] = millis() + runTime; // Set the time when the pump should be turned off
+  pumpStartTimes[pumpNumber - 54] = millis() + runTime; 
   Serial.print("Running pump: ");
   Serial.println(pumpNumber);
 }
