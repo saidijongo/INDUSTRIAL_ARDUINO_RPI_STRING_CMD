@@ -29,6 +29,20 @@ bool iswashing = true;
 unsigned long pumpStartTimes[numPumps] = {0};
 CRGB leds[NUM_LEDS];
 
+
+void setup() {
+  FastLED.addLeds<NEOPIXEL, 11>(leds, NUM_LEDS);
+  Serial.begin(115200);
+  myServo.attach(servoPin);
+
+  for (int i = 0; i < numPumps; ++i) {
+    pinMode(motorPins[i], OUTPUT);
+  }
+  pinMode(dirPin, OUTPUT);
+  pinMode(pulPin, OUTPUT);
+  pinMode(IR_PIN, INPUT);
+}
+
 void runPumps(int pumpNumber, int runTime) {
   Serial.print("Running pump ");
   Serial.print(pumpNumber);
@@ -83,6 +97,7 @@ void runStepper(int angle, int runTime) {
   angle = abs(angle);
   digitalWrite(dirPin, direction);
 
+  
   // Calculate the number of steps based on the angle
   //int steps = angle * numStepsPerRevolution / 360;
   int steps =6400;
@@ -101,6 +116,7 @@ void runStepper(int angle, int runTime) {
     }
   }
 }
+
 
 void ledStrip1() {
   static uint8_t startIndex = 0;  // Starting index of the green LED group
@@ -158,7 +174,6 @@ void ledStrip1() {
     FastLED.show();
   }
 }
-
 
 void processCommand(String command) {
   Serial.println(command);
@@ -280,6 +295,7 @@ void processCommand(String command) {
             break;
           }
         }
+        
       } else if (motorType == "LEDSTRIP_OPERATION") {
         int index = secondBracketIndex + 1;
         while (index < command.length() && index < semiColonIndex) {
@@ -332,19 +348,6 @@ void processCommand(String command) {
 }
 
 
-
-void setup() {
-  FastLED.addLeds<NEOPIXEL, 11>(leds, NUM_LEDS);
-  Serial.begin(115200);
-  myServo.attach(servoPin);
-
-  for (int i = 0; i < numPumps; ++i) {
-    pinMode(motorPins[i], OUTPUT);
-  }
-  pinMode(dirPin, OUTPUT);
-  pinMode(pulPin, OUTPUT);
-  pinMode(IR_PIN, INPUT);
-}
 
 void loop() {
   if (Serial.available() > 0) {
