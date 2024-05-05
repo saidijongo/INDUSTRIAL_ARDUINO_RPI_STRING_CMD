@@ -68,7 +68,6 @@ void runStepper(int angle, int runTime) {
   delay(runTime);
 }
 
-//only comma separated
 void processCommand(String command) {
   char separator = ',';
 
@@ -169,6 +168,7 @@ void loop() {
     processCommand(data);
   }
 }
+
 
 // "(PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(56,3000),(59,4250),(60,9000),(65,4000),(70,3000),(75,4250),(80,9000),(80,4000),(59,4250),(60,9000),(65,4000),(70,3000),(75,4250),(82,6000),(81,4000)"
 //"(REVERSE_PUMPMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(56,3000),(59,4250),(60,9000),(65,4000),(70,3000),(75,4250),(80,9000),(80,4000),(59,4250),(60,9000),(65,4000),(70,3000),(75,4250),(82,6000),(81,4000)"
