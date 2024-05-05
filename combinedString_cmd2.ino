@@ -1,7 +1,7 @@
 
 //"(PUMP_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065), (56,3000),(58,4250),(55,3000),(59,4250);(SERVOMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(90,1000);(STEPPERMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(45,1000);(LEDSTRIP_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065)"
 
-//bueno 2
+//jongo bueno 2
 #include <Arduino.h>
 #include <Servo.h>
 #include <FastLED.h>
@@ -368,12 +368,11 @@ void processCommand(String command) {
 }
 
 
-
-
 void loop() {
   if (Serial.available() > 0) {
     String data = Serial.readStringUntil('\n');
     processCommand(data);
   }
 }
+
 //"(PUMP_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065), (56,3000),(58,4250),(55,3000),(59,4250);(SERVOMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(90,1000);(STEPPERMOTOR_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065),(45,1000);(LEDSTRIP_OPERATION 1647eba3-a6b0-42a7-8a08-ffef8ab07065)"
