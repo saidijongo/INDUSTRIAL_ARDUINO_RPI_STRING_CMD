@@ -8,4 +8,5 @@ Arduino MPAINO,nano rp 2040 connect/ uno/ wemos  connected to Raspberry pi 5 via
 
 mpaino logic
 https://ilogics.synology.me/MPAINO/MPAINO-16A32R/MPAINO-16A32R%20%EC%82%AC%EC%9A%A9%EC%84%A4%EB%AA%85%EC%84%9C(ARDUINO%20IDE).pdf
+  http://ilogics.synology.me/Drivers/CP210x_Windows_Drivers.zip
 
