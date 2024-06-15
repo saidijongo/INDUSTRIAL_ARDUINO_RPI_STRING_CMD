@@ -6,3 +6,6 @@ Arduino MPAINO,nano rp 2040 connect/ uno/ wemos  connected to Raspberry pi 5 via
 
 ![image](https://github.com/saidijongo/INDUSTRIAL_ARDUINO_RPI_STRING_CMD/assets/31678025/087260e5-248c-4480-9c57-42a390d936fd)
 
+mpaino logic
+https://ilogics.synology.me/MPAINO/MPAINO-16A32R/MPAINO-16A32R%20%EC%82%AC%EC%9A%A9%EC%84%A4%EB%AA%85%EC%84%9C(ARDUINO%20IDE).pdf
+
